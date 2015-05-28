@@ -1,10 +1,22 @@
 <?php
 namespace Admin;
 
+use Zend\Mvc\MvcEvent;
 use Zend\Stdlib\ArrayUtils;
 
 class Module
 {
+    public function onBootstrap(MvcEvent $e)
+    {
+        $application = $e->getApplication();
+        $eventManager = $application->getEventManager();
+
+        $eventManager->attach("dispatch", function (MvcEvent $e) {
+            $I_controller = $e->getTarget();
+            $I_controller->layout('layout/layout_admin');
+        });
+    }
+
     public function getConfig()
     {
         $config = include __DIR__ . '/config/module.config.php';

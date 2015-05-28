@@ -9,6 +9,11 @@ use WebReattivoCore\Service\BaseService;
  */
 class UserService extends BaseService
 {
+    /**
+     * @var string
+     */
+    public $entity = 'WebReattivoCore\Entity\User';
+
     public function __construct()
     {
 

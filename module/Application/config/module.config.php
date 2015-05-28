@@ -21,6 +21,13 @@ return [
             ],
         ],
     ],
+    'asset_manager' => array(
+        'resolver_configs' => array(
+            'paths' => array(
+                __DIR__ . '/../public',
+            ),
+        ),
+    ),
 
     'view_manager' => [
         'doctype'                  => 'HTML5',

@@ -1,11 +1,15 @@
 <?php
 namespace WebReattivoCore;
 
+use Zend\Stdlib\ArrayUtils;
+
 class Module
 {
     public function getConfig()
     {
-        return include __DIR__ . '/config/module.config.php';
+        $config = include __DIR__ . '/config/module.config.php';
+        $config = ArrayUtils::merge($config, include __DIR__ . '/config/doctrine.config.php');
+        return $config;
     }
 
     public function getAutoloaderConfig()

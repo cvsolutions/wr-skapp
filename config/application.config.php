@@ -10,6 +10,10 @@ return array(
 
         'DoctrineModule',
         'DoctrineORMModule',
+        'BjyAuthorize',
+        'AssetManager',
+
+        // my modules
         'Application',
         'WebReattivoCore',
         'Admin'
