@@ -52,28 +52,28 @@ class User
     /**
      * @var string
      *
-     * @ORM\Column(name="address", type="string", length=120, nullable=false)
+     * @ORM\Column(name="address", type="string", length=120, nullable=true)
      */
     private $address;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="zip_code", type="string", length=5, nullable=false)
+     * @ORM\Column(name="zip_code", type="string", length=5, nullable=true)
      */
     private $zipCode;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="city", type="string", length=60, nullable=false)
+     * @ORM\Column(name="city", type="string", length=60, nullable=true)
      */
     private $city;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="province", type="string", length=60, nullable=false)
+     * @ORM\Column(name="province", type="string", length=60, nullable=true)
      */
     private $province;
 

@@ -54,6 +54,14 @@ class BaseService implements ServiceLocatorAwareInterface
     }
 
     /**
+     * @return \Doctrine\DBAL\Connection
+     */
+    public function getConnection()
+    {
+        return $this->getEntityManager()->getConnection();
+    }
+
+    /**
      * @param int $id
      *
      * @return null|object

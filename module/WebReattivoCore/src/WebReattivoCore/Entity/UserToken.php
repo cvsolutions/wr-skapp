@@ -22,6 +22,13 @@ class UserToken
     private $id;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="type", type="integer", nullable=false)
+     */
+    private $type;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="token", type="string", length=60, nullable=false)
@@ -45,6 +52,8 @@ class UserToken
      */
     private $user;
 
+
+
     /**
      * Get id
      *
@@ -53,6 +62,30 @@ class UserToken
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set type
+     *
+     * @param integer $type
+     *
+     * @return UserToken
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return integer
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 
     /**

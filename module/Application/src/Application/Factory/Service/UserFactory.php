@@ -1,8 +1,7 @@
 <?php
-namespace WebReattivoCore\Factory\Service;
+namespace Application\Factory\Service;
 
-use WebReattivoCore\Service\UserService;
-use Zend\Http\PhpEnvironment\RemoteAddress;
+use Application\Service\UserService;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
@@ -15,12 +14,13 @@ class UserFactory implements FactoryInterface
     /**
      * @param ServiceLocatorInterface $serviceLocator
      *
-     * @return UserService
+     * @return
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $service = new UserService();
+        $entityManager = $serviceLocator->get('doctrine.entitymanager.orm_default');
+        $userTokenService = $serviceLocator->get('WebReattivoCore\Service\UserTokenService');
 
-        return $service;
+        return new UserService($entityManager, $userTokenService);
     }
 }

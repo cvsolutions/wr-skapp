@@ -9,15 +9,23 @@
 
 namespace Application;
 
+use Zend\ModuleManager\ModuleManager;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
 use Zend\Stdlib\ArrayUtils;
 
 class Module
 {
+    public function init(ModuleManager $mm)
+    {
+        $mm->getEventManager()->getSharedManager()->attach(__NAMESPACE__, 'dispatch', function (MvcEvent $e) {
+            $e->getTarget()->layout('layout/layout');
+        });
+    }
+
     public function onBootstrap(MvcEvent $e)
     {
-        $eventManager        = $e->getApplication()->getEventManager();
+        $eventManager = $e->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
     }
@@ -28,6 +36,7 @@ class Module
         $config = ArrayUtils::merge($config, include __DIR__ . '/config/route.config.php');
         $config = ArrayUtils::merge($config, include __DIR__ . '/config/controller.config.php');
         $config = ArrayUtils::merge($config, include __DIR__ . '/config/bjyauthorize.config.php');
+
         return $config;
     }
 
