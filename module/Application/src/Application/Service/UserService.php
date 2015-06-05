@@ -53,7 +53,7 @@ class UserService extends \WebReattivoCore\Service\UserService
             $this->entityManager->persist($user);
             $this->entityManager->flush();
 
-            $this->userTokenService->createToken($user);
+            $this->userTokenService->createToken($user, TypeToken::REGISTRATION);
 
             $this->getConnection()->commit();
 

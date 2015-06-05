@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * UserToken
  *
- * @ORM\Table(name="user_token", indexes={@ORM\Index(name="user_id", columns={"user_id"})})
+ * @ORM\Table(name="user_token", uniqueConstraints={@ORM\UniqueConstraint(name="token", columns={"token"})}, indexes={@ORM\Index(name="user_id", columns={"user_id"})})
  * @ORM\Entity
  */
 class UserToken

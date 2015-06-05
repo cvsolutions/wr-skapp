@@ -26,15 +26,17 @@ class UserTokenService extends BaseService
 
     /**
      * @param User $user
+     * @param      $typeToken
      *
-     * @return string|UserToken
+     * @return UserToken
+     * @throws \Exception
      */
-    public function createToken(User $user)
+    public function createToken(User $user, $typeToken)
     {
         try {
 
             $token = new UserToken();
-            $token->setType(TypeToken::REGISTRATION);
+            $token->setType($typeToken);
             $token->setUser($user);
             $token->setToken(sha1(Rand::getString(32, 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789',
                 true)));
@@ -86,6 +88,7 @@ class UserTokenService extends BaseService
 
             $this->getEntityManager()->remove($userToken);
             $this->getEntityManager()->flush();
+
             return true;
 
         } catch (\Exception $e) {
