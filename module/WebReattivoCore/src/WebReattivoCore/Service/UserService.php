@@ -3,6 +3,7 @@ namespace WebReattivoCore\Service;
 
 use WebReattivoCore\Service\BaseService;
 
+
 /**
  * Class UserService
  * @package WebReattivoCore\Service

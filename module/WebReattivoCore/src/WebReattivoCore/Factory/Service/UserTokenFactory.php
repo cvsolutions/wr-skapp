@@ -2,15 +2,15 @@
 namespace WebReattivoCore\Factory\Service;
 
 use WebReattivoCore\Service\UserService;
-use Zend\Http\PhpEnvironment\RemoteAddress;
+use WebReattivoCore\Service\UserTokenService;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
- * Class UserFactory
+ * Class UserTokenFactory
  * @package WebReattivoCore\Factory\Service
  */
-class UserFactory implements FactoryInterface
+class UserTokenFactory implements FactoryInterface
 {
     /**
      * @param ServiceLocatorInterface $serviceLocator
@@ -19,8 +19,6 @@ class UserFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $service = new UserService();
-
-        return $service;
+        return new UserTokenService();
     }
 }

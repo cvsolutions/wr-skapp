@@ -10,6 +10,10 @@ return [
         'aliases' => [
             'translator' => 'MvcTranslator',
         ],
+        'factories' => [
+            'userService'      => 'Application\Factory\Service\UserFactory',
+            'registrationForm' => 'Application\Factory\Form\RegistrationFactory'
+        ]
     ],
     'translator' => [
         'locale' => 'en_US',

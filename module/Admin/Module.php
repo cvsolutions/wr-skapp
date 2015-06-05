@@ -1,19 +1,16 @@
 <?php
 namespace Admin;
 
+use Zend\ModuleManager\ModuleManager;
 use Zend\Mvc\MvcEvent;
 use Zend\Stdlib\ArrayUtils;
 
 class Module
 {
-    public function onBootstrap(MvcEvent $e)
+    public function init(ModuleManager $mm)
     {
-        $application = $e->getApplication();
-        $eventManager = $application->getEventManager();
-
-        $eventManager->attach("dispatch", function (MvcEvent $e) {
-            $I_controller = $e->getTarget();
-            $I_controller->layout('layout/layout_admin');
+        $mm->getEventManager()->getSharedManager()->attach(__NAMESPACE__, 'dispatch', function (MvcEvent $e) {
+            $e->getTarget()->layout('layout/layout_admin');
         });
     }
 

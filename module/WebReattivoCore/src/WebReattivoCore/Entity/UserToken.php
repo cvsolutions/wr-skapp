@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * UserToken
  *
- * @ORM\Table(name="user_token", indexes={@ORM\Index(name="user_id", columns={"user_id"})})
+ * @ORM\Table(name="user_token", uniqueConstraints={@ORM\UniqueConstraint(name="token", columns={"token"})}, indexes={@ORM\Index(name="user_id", columns={"user_id"})})
  * @ORM\Entity
  */
 class UserToken
@@ -22,9 +22,16 @@ class UserToken
     private $id;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="type", type="integer", nullable=false)
+     */
+    private $type;
+
+    /**
      * @var string
      *
-     * @ORM\Column(name="token", type="string", length=60, nullable=false)
+     * @ORM\Column(name="token", type="string", length=40, nullable=false)
      */
     private $token;
 
@@ -45,6 +52,8 @@ class UserToken
      */
     private $user;
 
+
+
     /**
      * Get id
      *
@@ -53,6 +62,30 @@ class UserToken
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set type
+     *
+     * @param integer $type
+     *
+     * @return UserToken
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return integer
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 
     /**
