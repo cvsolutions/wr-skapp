@@ -31,7 +31,7 @@ class UserToken
     /**
      * @var string
      *
-     * @ORM\Column(name="token", type="string", length=60, nullable=false)
+     * @ORM\Column(name="token", type="string", length=40, nullable=false)
      */
     private $token;
 

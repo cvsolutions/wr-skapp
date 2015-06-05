@@ -85,6 +85,13 @@ class User
     private $dateRegistration;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_confirm", type="datetime", nullable=true)
+     */
+    private $dateConfirm;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="ip", type="string", length=12, nullable=false)
@@ -94,14 +101,21 @@ class User
     /**
      * @var string
      *
-     * @ORM\Column(name="role", type="string", length=15, nullable=false)
+     * @ORM\Column(name="ip_confirm", type="string", length=12, nullable=true)
+     */
+    private $ipConfirm;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="role", type="string", length=12, nullable=false)
      */
     private $role;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="status", type="integer", nullable=false)
+     * @ORM\Column(name="status", type="smallint", nullable=false)
      */
     private $status;
 
@@ -334,6 +348,30 @@ class User
     }
 
     /**
+     * Set dateConfirm
+     *
+     * @param \DateTime $dateConfirm
+     *
+     * @return User
+     */
+    public function setDateConfirm($dateConfirm)
+    {
+        $this->dateConfirm = $dateConfirm;
+
+        return $this;
+    }
+
+    /**
+     * Get dateConfirm
+     *
+     * @return \DateTime
+     */
+    public function getDateConfirm()
+    {
+        return $this->dateConfirm;
+    }
+
+    /**
      * Set ip
      *
      * @param string $ip
@@ -355,6 +393,30 @@ class User
     public function getIp()
     {
         return $this->ip;
+    }
+
+    /**
+     * Set ipConfirm
+     *
+     * @param string $ipConfirm
+     *
+     * @return User
+     */
+    public function setIpConfirm($ipConfirm)
+    {
+        $this->ipConfirm = $ipConfirm;
+
+        return $this;
+    }
+
+    /**
+     * Get ipConfirm
+     *
+     * @return string
+     */
+    public function getIpConfirm()
+    {
+        return $this->ipConfirm;
     }
 
     /**

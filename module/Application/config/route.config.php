@@ -26,6 +26,10 @@ return [
                 'type'    => 'Zend\Mvc\Router\Http\Segment',
                 'options' => [
                     'route'    => '/user/verify/:token/:id',
+                    'constraints' => [
+                        'token' => '[a-zA-Z0-9]*',
+                        'id'    => '[0-9]*'
+                    ],
                     'defaults' => [
                         'controller' => 'Application\Controller\User',
                         'action'     => 'verify',

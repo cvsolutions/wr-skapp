@@ -36,13 +36,57 @@ class UserTokenService extends BaseService
             $token = new UserToken();
             $token->setType(TypeToken::REGISTRATION);
             $token->setUser($user);
-            $token->setToken(sha1(Rand::getBytes(32)));
+            $token->setToken(sha1(Rand::getString(32, 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789',
+                true)));
             $token->setDateRegistration(new \DateTime());
 
             $this->getEntityManager()->persist($token);
             $this->getEntityManager()->flush();
 
             return $token;
+
+        } catch (\Exception $e) {
+
+            throw $e;
+        }
+    }
+
+    /**
+     * @param $token
+     * @param $userId
+     * @param $type
+     *
+     * @return null|UserToken
+     */
+    public function verifyToken($token, $userId, $type)
+    {
+        /** @var UserToken $verifyToken */
+        $verifyToken = $this->findOneBy([
+            'token' => $token,
+            'user'  => $userId,
+            'type'  => $type
+        ]);
+
+        if (empty($verifyToken)) {
+            return null;
+        }
+
+        return $verifyToken;
+    }
+
+    /**
+     * @param UserToken $userToken
+     *
+     * @return bool
+     * @throws \Exception
+     */
+    public function deleteToken(UserToken $userToken)
+    {
+        try {
+
+            $this->getEntityManager()->remove($userToken);
+            $this->getEntityManager()->flush();
+            return true;
 
         } catch (\Exception $e) {
 
