@@ -2,6 +2,7 @@
 namespace Application\Form;
 
 use WebReattivoCore\Entity\User;
+use WebReattivoCore\Service\UserService;
 use Zend\Form\Fieldset;
 use Zend\InputFilter\InputFilterProviderInterface;
 use Zend\Stdlib\Hydrator\HydratorInterface;
@@ -13,16 +14,20 @@ use Zend\Stdlib\Hydrator\HydratorInterface;
  */
 class RegistrationFieldset extends Fieldset implements InputFilterProviderInterface
 {
+    /** @var  UserService */
+    private $userService;
+
     /**
-     * @param string $name
-     * @param array  $options
+     * @param UserService       $userService
+     * @param HydratorInterface $hydrator
      */
-    public function __construct(HydratorInterface $hydrator)
+    public function __construct(UserService $userService, HydratorInterface $hydrator)
     {
         parent::__construct('registration', [
             'use_as_base_fieldset' => true
         ]);
 
+        $this->userService = $userService;
         $this->setHydrator($hydrator);
         $this->setObject(new User());
 
@@ -91,7 +96,7 @@ class RegistrationFieldset extends Fieldset implements InputFilterProviderInterf
     public function getInputFilterSpecification()
     {
         return [
-            'name'    => [
+            'name'      => [
                 'required' => true,
                 'filters'  => [
                     [
@@ -99,7 +104,7 @@ class RegistrationFieldset extends Fieldset implements InputFilterProviderInterf
                     ]
                 ]
             ],
-            'surname'    => [
+            'surname'   => [
                 'required' => true,
                 'filters'  => [
                     [
@@ -107,40 +112,46 @@ class RegistrationFieldset extends Fieldset implements InputFilterProviderInterf
                     ]
                 ]
             ],
-            'email' => [
-                'required' => true,
+            'email'     => [
+                'required'   => true,
                 'validators' => [
                     [
-                        'name' => 'EmailAddress',
-                        'break_chain_on_failure' => true
-                    ]
-                ]
-            ],
-            'email2' => [
-                'required' => true,
-                'validators' => [
-                    [
-                        'name' => 'EmailAddress',
+                        'name'                   => 'EmailAddress',
                         'break_chain_on_failure' => true
                     ],
                     [
-                        'name' => 'Identical',
+                        'name'    => 'WebReattivoCore\Form\Validator\DuplicateEmail',
+                        'options' => [
+                            'userService' => $this->userService
+                        ]
+                    ]
+                ]
+            ],
+            'email2'    => [
+                'required'   => true,
+                'validators' => [
+                    [
+                        'name'                   => 'EmailAddress',
+                        'break_chain_on_failure' => true
+                    ],
+                    [
+                        'name'    => 'Identical',
                         'options' => [
                             'token' => 'email'
                         ]
                     ]
                 ]
             ],
-            'password' => [
-                'required' => true,
-                'filters' => [
+            'password'  => [
+                'required'   => true,
+                'filters'    => [
                     [
                         'name' => 'StringTrim'
                     ]
                 ],
                 'validators' => [
                     [
-                        'name' => 'StringLength',
+                        'name'    => 'StringLength',
                         'options' => [
                             'min' => 8
                         ]
@@ -148,22 +159,22 @@ class RegistrationFieldset extends Fieldset implements InputFilterProviderInterf
                 ]
             ],
             'password2' => [
-                'required' => true,
-                'filters' => [
+                'required'   => true,
+                'filters'    => [
                     [
                         'name' => 'StringTrim'
                     ]
                 ],
                 'validators' => [
                     [
-                        'name' => 'StringLength',
-                        'options' => [
+                        'name'                   => 'StringLength',
+                        'options'                => [
                             'min' => 8
                         ],
                         'break_chain_on_failure' => true
                     ],
                     [
-                        'name' => 'Identical',
+                        'name'    => 'Identical',
                         'options' => [
                             'token' => 'password'
                         ]

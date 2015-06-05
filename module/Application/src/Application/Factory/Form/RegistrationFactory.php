@@ -20,8 +20,10 @@ class RegistrationFactory implements FactoryInterface
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         $entityManager = $serviceLocator->get('doctrine.entitymanager.orm_default');
+        $userService = $serviceLocator->get('WebReattivoCore\Service\UserService');
+
         $hydrator = new DoctrineHydrator($entityManager);
-        $userFieldset = new RegistrationFieldset($hydrator);
+        $userFieldset = new RegistrationFieldset($userService, $hydrator);
 
         return new RegistrationForm($userFieldset);
     }
