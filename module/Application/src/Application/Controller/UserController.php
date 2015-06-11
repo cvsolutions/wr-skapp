@@ -4,6 +4,7 @@ namespace Application\Controller;
 
 use Application\Form\RegistrationForm;
 use Application\Service\UserService;
+use WebReattivoCore\Entity\User;
 use WebReattivoCore\Utility\MessageError;
 use WebReattivoCore\Utility\MessageSuccess;
 use Zend\Mvc\Controller\AbstractActionController;
@@ -29,19 +30,20 @@ class UserController extends AbstractActionController
 
         if ($this->getRequest()->isPost()) {
             $data = $this->getRequest()->getPost()->toArray();
-
-            print_r($data);
-            exit;
-
             $form->setData($data);
 
             if ($form->isValid()) {
 
                 try {
-
-                    $this->userService->registration($form->getData());
-
-                    //@TODO send email here for verify account!!!
+                    /** @var User $user */
+                    $user = $form->getData();
+                    $this->userService->registration($user);
+                    $emailService = $this->userService->getEmailService();
+                    $emailService->setTemplate('application/emails/register/verify', ['user' => $user]);
+                    $emailService->getMessage()
+                        ->setSubject('Conferma Email')
+                        ->setTo($user->getEmail());
+                    $emailService->send();
 
                     $this->flashMessenger()->addSuccessMessage(MessageSuccess::DEFALUT_MESSAGE);
 

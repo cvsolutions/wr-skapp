@@ -1,6 +1,7 @@
 <?php
 namespace WebReattivoCore\Service;
 
+use AcMailer\Service\MailService;
 use WebReattivoCore\Utility\ErrorException;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -61,9 +62,12 @@ class BaseService implements ServiceLocatorAwareInterface
         return $this->getEntityManager()->getConnection();
     }
 
+    /**
+     * @return MailService
+     */
     public function getEmailService()
     {
-        return true;
+        return $this->getServiceLocator()->get('acmailer.mailservice.default');
     }
 
     /**
