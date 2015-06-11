@@ -12,6 +12,7 @@ return array(
         'DoctrineORMModule',
         'BjyAuthorize',
         'AssetManager',
+        'AcMailer',
 
         // my modules
         'Application',

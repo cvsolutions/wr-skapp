@@ -61,6 +61,11 @@ class BaseService implements ServiceLocatorAwareInterface
         return $this->getEntityManager()->getConnection();
     }
 
+    public function getEmailService()
+    {
+        return true;
+    }
+
     /**
      * @param int $id
      *

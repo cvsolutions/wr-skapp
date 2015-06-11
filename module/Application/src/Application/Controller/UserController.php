@@ -29,6 +29,10 @@ class UserController extends AbstractActionController
 
         if ($this->getRequest()->isPost()) {
             $data = $this->getRequest()->getPost()->toArray();
+
+            print_r($data);
+            exit;
+
             $form->setData($data);
 
             if ($form->isValid()) {
