@@ -1,6 +1,7 @@
 <?php
 namespace Application\Controller;
 
+use WebReattivoCore\Utility\MessageError;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
@@ -46,6 +47,8 @@ class LoginController extends AbstractActionController
                 if (true === $auth) {
                     return $this->redirect()->toRoute('dashboard');
                 }
+                $this->flashMessenger()->addErrorMessage(MessageError::LOGIN_INVALID);
+                return $this->redirect()->toRoute('login');
             }
         }
         return new ViewModel([
