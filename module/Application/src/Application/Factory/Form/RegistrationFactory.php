@@ -1,30 +1,25 @@
 <?php
-
 namespace Application\Factory\Form;
 
-use Application\Form\RegistrationFieldset;
 use Application\Form\RegistrationForm;
+use DoctrineModule\Stdlib\Hydrator\DoctrineObject as DoctrineHydrator;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
-use DoctrineModule\Stdlib\Hydrator\DoctrineObject as DoctrineHydrator;
 
 class RegistrationFactory implements FactoryInterface
 {
     /**
-     * Create service
-     *
      * @param ServiceLocatorInterface $serviceLocator
-     *
      * @return RegistrationForm
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
+        /** @var \Doctrine\ORM\EntityManager $entityManager */
         $entityManager = $serviceLocator->get('doctrine.entitymanager.orm_default');
-        $userService = $serviceLocator->get('WebReattivoCore\Service\UserService');
-
-        $hydrator = new DoctrineHydrator($entityManager);
-        $userFieldset = new RegistrationFieldset($userService, $hydrator);
-
-        return new RegistrationForm($userFieldset);
+        $hydrator      = new DoctrineHydrator($entityManager);
+        return new RegistrationForm(null, [
+            'hydrator'       => $hydrator,
+            'entity_manager' => $entityManager
+        ]);
     }
 }

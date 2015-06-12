@@ -1,5 +1,6 @@
 <h1>Registration</h1>
 <?php
+/** @var \Zend\Form\Form $form */
 $form = $this->registrationForm->prepare();
 ?>
 
@@ -14,28 +15,28 @@ $form = $this->registrationForm->prepare();
             <div class="col-lg-3">
                 <div class="form-group">
                     <label for="gender">Nome</label>
-                    <?= $this->formRow($form->get('registration')->get('name')); ?>
+                    <?= $this->formRow($form->get('name')); ?>
                 </div>
             </div>
 
             <div class="col-lg-3">
                 <div class="form-group">
                     <label for="name">Cognome</label>
-                    <?= $this->formRow($form->get('registration')->get('surname')); ?>
+                    <?= $this->formRow($form->get('surname')); ?>
                 </div>
             </div>
 
             <div class="col-lg-3">
                 <div class="form-group">
                     <label for="name">Email</label>
-                    <?= $this->formRow($form->get('registration')->get('email')); ?>
+                    <?= $this->formRow($form->get('email')); ?>
                 </div>
             </div>
 
             <div class="col-lg-3">
                 <div class="form-group">
                     <label for="name">Ripeti Email</label>
-                    <?= $this->formRow($form->get('registration')->get('email2')); ?>
+                    <?= $this->formRow($form->get('email2')); ?>
                 </div>
             </div>
         </div>
@@ -44,14 +45,14 @@ $form = $this->registrationForm->prepare();
             <div class="col-lg-3">
                 <div class="form-group">
                     <label for="gender">Password</label>
-                    <?= $this->formRow($form->get('registration')->get('password')); ?>
+                    <?= $this->formRow($form->get('password')); ?>
                 </div>
             </div>
 
             <div class="col-lg-3">
                 <div class="form-group">
                     <label for="name">Ripeti Password</label>
-                    <?= $this->formRow($form->get('registration')->get('password2')); ?>
+                    <?= $this->formRow($form->get('password2')); ?>
                 </div>
             </div>
         </div>
