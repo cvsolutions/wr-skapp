@@ -2,7 +2,6 @@
 namespace WebReattivoCore\Service;
 
 use AcMailer\Service\MailService;
-use Doctrine\Entity;
 use WebReattivoCore\Utility\ErrorException;
 use Zend\Crypt\Password\Bcrypt;
 use Zend\Http\PhpEnvironment\RemoteAddress;
@@ -145,5 +144,17 @@ class BaseService implements ServiceLocatorAwareInterface
     public function findOneBy(array $criteria = [])
     {
         return $this->getRepository()->findOneBy($criteria);
+    }
+
+    /**
+     * @param $entity
+     *
+     * @return mixed
+     */
+    public function persist($entity)
+    {
+        $this->getEntityManager()->persist($entity);
+        $this->getEntityManager()->flush();
+        return $entity;
     }
 }

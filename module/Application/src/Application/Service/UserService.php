@@ -43,9 +43,7 @@ class UserService extends \WebReattivoCore\Service\UserService
             $user->setStatus(UserStatus::PENDING);
             $user->setRole(Roles::USER);
             $user->setPassword($this->getPasswordEncrypted($user->getPassword()));
-
-            $this->entityManager->persist($user);
-            $this->entityManager->flush();
+            $this->persist($user);
 
             $token = $this->userTokenService->createToken($user, TypeToken::REGISTRATION);
 
@@ -104,9 +102,7 @@ class UserService extends \WebReattivoCore\Service\UserService
             $user->setDateConfirm($this->getDataTime());
             $user->setIpConfirm($this->getIpAddress());
             $user->setStatus(UserStatus::ACTIVE);
-
-            $this->entityManager->persist($user);
-            $this->entityManager->flush();
+            $this->persist($user);
 
             $this->userTokenService->deleteToken($userToken);
 
@@ -168,8 +164,7 @@ class UserService extends \WebReattivoCore\Service\UserService
         try {
 
             $user->setPassword($this->getPasswordEncrypted($user->getPassword()));
-            $this->getEntityManager()->persist($user);
-            $this->getEntityManager()->flush();
+            $this->persist($user);
 
             $this->userTokenService->deleteToken($userToken);
 
