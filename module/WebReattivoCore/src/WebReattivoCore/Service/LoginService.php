@@ -28,4 +28,14 @@ class LoginService extends BaseService
             return true;
         }
     }
+
+    /**
+     * @return bool
+     */
+    public function clearIdentity()
+    {
+        $logged = $this->getAuthentication();
+        $logged->clearIdentity();
+        return true;
+    }
 }

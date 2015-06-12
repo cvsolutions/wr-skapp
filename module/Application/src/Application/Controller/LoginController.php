@@ -45,7 +45,7 @@ class LoginController extends AbstractActionController
                 $data = $form->getData();
                 $auth = $this->loginService->isValid($data['email'], $data['password']);
                 if (true === $auth) {
-                    return $this->redirect()->toRoute('dashboard');
+                    return $this->redirect()->toRoute('admin');
                 }
                 $this->flashMessenger()->addErrorMessage(MessageError::LOGIN_INVALID);
                 return $this->redirect()->toRoute('login');
@@ -54,5 +54,14 @@ class LoginController extends AbstractActionController
         return new ViewModel([
             'htmlForm' => $form
         ]);
+    }
+
+    /**
+     * @return \Zend\Http\Response
+     */
+    public function logoutAction()
+    {
+        $this->loginService->clearIdentity();
+        return $this->redirect()->toRoute('login');
     }
 }

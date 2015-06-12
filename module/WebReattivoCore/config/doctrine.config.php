@@ -23,7 +23,9 @@ return [
                 'credential_property' => 'password',
                 'credential_callable' => function (\WebReattivoCore\Entity\User $user, $password) {
                     $Bcrypt = new \Zend\Crypt\Password\Bcrypt();
-                    if ($user->getPassword() == $Bcrypt->verify($password, $user->getPassword())) {
+                    if (($user->getPassword() == $Bcrypt->verify($password, $user->getPassword()))
+                        && ($user->getStatus() == \WebReattivoCore\Utility\UserStatus::ACTIVE)
+                    ) {
                         return true;
                     }
                     return false;

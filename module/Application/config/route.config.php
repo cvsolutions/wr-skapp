@@ -2,7 +2,7 @@
 return [
     'router' => [
         'routes' => [
-            'home'  => [
+            'home'   => [
                 'type'    => 'Zend\Mvc\Router\Http\Literal',
                 'options' => [
                     'route'    => '/',
@@ -12,7 +12,7 @@ return [
                     ],
                 ],
             ],
-            'login' => [
+            'login'  => [
                 'type'    => 'Zend\Mvc\Router\Http\Literal',
                 'options' => [
                     'route'    => '/login',
@@ -22,7 +22,17 @@ return [
                     ]
                 ]
             ],
-            'user'  => [
+            'logout' => [
+                'type'    => 'Zend\Mvc\Router\Http\Literal',
+                'options' => [
+                    'route'    => '/logout',
+                    'defaults' => [
+                        'controller' => 'Application\Controller\Login',
+                        'action'     => 'logout'
+                    ]
+                ]
+            ],
+            'user'   => [
                 'type'          => 'Zend\Mvc\Router\Http\Literal',
                 'options'       => [
                     'route'    => '/user',

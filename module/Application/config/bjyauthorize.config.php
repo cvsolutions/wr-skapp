@@ -6,7 +6,7 @@ return [
                 ['controller' => 'Application\Controller\Index', 'roles' => []],
                 ['controller' => 'Application\Controller\Login', 'roles' => []],
                 ['controller' => 'Application\Controller\User', 'roles' => []],
-                ['controller' => 'Application\Controller\UserArea', 'roles' => ['User']],
+                ['controller' => 'Application\Controller\UserArea', 'roles' => []],
             ]
         ]
     ]
