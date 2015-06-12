@@ -4,8 +4,11 @@ namespace Application\Controller;
 
 use Application\Form\RegistrationForm;
 use Application\Service\UserService;
+use WebReattivoCore\Entity\User;
+use WebReattivoCore\Entity\UserToken;
 use WebReattivoCore\Utility\MessageError;
 use WebReattivoCore\Utility\MessageSuccess;
+use WebReattivoCore\Utility\Templates;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
@@ -35,9 +38,20 @@ class UserController extends AbstractActionController
 
                 try {
 
-                    $this->userService->registration($form->getData());
+                    /** @var User $user */
+                    $user = $form->getData();
 
-                    //@TODO send email here for verify account!!!
+                    /** @var UserToken $token */
+                    $token = $this->userService->registration($user);
+                    $emailService = $this->userService->getEmailService();
+                    $emailService->setTemplate(Templates::VERIFY_ACCOUNT, [
+                        'user'  => $user,
+                        'token' => $token->getToken()
+                    ]);
+                    $emailService->getMessage()
+                        ->setSubject('Conferma Email')
+                        ->addTo($user->getEmail());
+                    $emailService->send();
 
                     $this->flashMessenger()->addSuccessMessage(MessageSuccess::DEFALUT_MESSAGE);
 
@@ -70,7 +84,7 @@ class UserController extends AbstractActionController
             $statusToken = false;
         }
 
-        if($statusToken === true) {
+        if ($statusToken === true) {
             $this->userService->confirm($verifyToken);
         }
 

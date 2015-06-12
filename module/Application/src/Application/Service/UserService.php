@@ -10,8 +10,6 @@ use WebReattivoCore\Utility\MessageError;
 use WebReattivoCore\Utility\Roles;
 use WebReattivoCore\Utility\TypeToken;
 use WebReattivoCore\Utility\UserStatus;
-use Zend\Crypt\Password\Bcrypt;
-use Zend\Http\PhpEnvironment\RemoteAddress;
 
 class UserService extends \WebReattivoCore\Service\UserService
 {
@@ -38,26 +36,20 @@ class UserService extends \WebReattivoCore\Service\UserService
 
         try {
 
-            /** @var RemoteAddress $ip */
-            $ip = new RemoteAddress();
-
-            /** @var Bcrypt $bcrypt */
-            $bcrypt = new Bcrypt();
-
-            $user->setDateRegistration(new \DateTime());
-            $user->setIp($ip->getIpAddress());
+            $user->setDateRegistration($this->getDataTime());
+            $user->setIp($this->getIpAddress());
             $user->setStatus(UserStatus::PENDING);
             $user->setRole(Roles::USER);
-            $user->setPassword($bcrypt->create($user->getPassword()));
+            $user->setPassword($this->getPasswordEncrypted($user->getPassword()));
 
             $this->entityManager->persist($user);
             $this->entityManager->flush();
 
-            $this->userTokenService->createToken($user, TypeToken::REGISTRATION);
+            $token = $this->userTokenService->createToken($user, TypeToken::REGISTRATION);
 
             $this->getConnection()->commit();
 
-            return $user;
+            return $token;
 
         } catch (\Exception $e) {
 
@@ -84,17 +76,14 @@ class UserService extends \WebReattivoCore\Service\UserService
         /** @var User $user */
         $user = $this->find($userToken->getUser()->getId());
 
-        if(empty($user)) {
+        if (empty($user)) {
             throw new \Exception(MessageError::USER_NOT_FOUND);
         }
 
         try {
 
-            /** @var RemoteAddress $ip */
-            $ip = new RemoteAddress();
-
-            $user->setDateConfirm(new \DateTime());
-            $user->setIpConfirm($ip->getIpAddress());
+            $user->setDateConfirm($this->getDataTime());
+            $user->setIpConfirm($this->getIpAddress());
             $user->setStatus(UserStatus::ACTIVE);
 
             $this->entityManager->persist($user);
