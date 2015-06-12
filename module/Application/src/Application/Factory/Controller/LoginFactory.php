@@ -18,6 +18,7 @@ class LoginFactory implements FactoryInterface
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         $LoginForm = $serviceLocator->getServiceLocator()->get('LoginForm');
-        return new LoginController($LoginForm);
+        $Login     = $serviceLocator->getServiceLocator()->get('WebReattivoCore\Service\Login');
+        return new LoginController($LoginForm, $Login);
     }
 }

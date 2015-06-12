@@ -1,7 +1,6 @@
 <?php
 namespace WebReattivoCore\Service;
 
-use AcMailer\Service\MailService;
 use WebReattivoCore\Utility\ErrorException;
 use Zend\Crypt\Password\Bcrypt;
 use Zend\Http\PhpEnvironment\RemoteAddress;
@@ -65,11 +64,19 @@ class BaseService implements ServiceLocatorAwareInterface
     }
 
     /**
-     * @return MailService
+     * @return \AcMailer\Service\MailService
      */
     public function getEmailService()
     {
         return $this->getServiceLocator()->get('acmailer.mailservice.default');
+    }
+
+    /**
+     * @return \Zend\Authentication\AuthenticationService
+     */
+    public function getAuthentication()
+    {
+        return $this->getServiceLocator()->get('Zend\Authentication\AuthenticationService');
     }
 
     /**
