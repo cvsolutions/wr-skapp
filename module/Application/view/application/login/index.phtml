@@ -1,0 +1,26 @@
+<?php
+/** @var \Zend\Form\Form $form */
+$form = $this->htmlForm->prepare();
+?>
+<div class="row">
+    <div class="col-md-4 col-md-offset-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">Login</div>
+            <div class="panel-body">
+                <?php echo $this->partial('partials/flash-messages.phtml', []); ?>
+                <?php echo $this->form()->openTag($form); ?>
+                <div class="form-group">
+                    <label>E-mail</label>
+                    <?php echo $this->formRow($form->get('email')); ?>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <?php echo $this->formRow($form->get('password')); ?>
+                </div>
+                <?php echo $this->formRow($form->get('csrf')); ?>
+                <input type="submit" class="btn btn-primary" value="Login">
+                <?php echo $this->form()->closeTag(); ?>
+            </div>
+        </div>
+    </div>
+</div>

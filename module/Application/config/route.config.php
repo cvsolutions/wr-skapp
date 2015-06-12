@@ -2,7 +2,7 @@
 return [
     'router' => [
         'routes' => [
-            'home' => [
+            'home'  => [
                 'type'    => 'Zend\Mvc\Router\Http\Literal',
                 'options' => [
                     'route'    => '/',
@@ -12,10 +12,20 @@ return [
                     ],
                 ],
             ],
-            'user' => [
+            'login' => [
+                'type'    => 'Zend\Mvc\Router\Http\Literal',
+                'options' => [
+                    'route'    => '/login',
+                    'defaults' => [
+                        'controller' => 'Application\Controller\Login',
+                        'action'     => 'index'
+                    ]
+                ]
+            ],
+            'user'  => [
                 'type'          => 'Zend\Mvc\Router\Http\Literal',
                 'options'       => [
-                    'route' => '/user',
+                    'route'    => '/user',
                     'defaults' => [
                         'controller' => 'Application\Controller\UserArea',
                         'action'     => 'index',
@@ -47,17 +57,17 @@ return [
                             ]
                         ],
                     ],
-                    'lost-pwd'       => [
+                    'lost-pwd'     => [
                         'type'    => 'Zend\Mvc\Router\Http\Segment',
                         'options' => [
-                            'route'       => '/lost-password',
-                            'defaults'    => [
+                            'route'    => '/lost-password',
+                            'defaults' => [
                                 'controller' => 'Application\Controller\User',
                                 'action'     => 'lost-pwd',
                             ]
                         ],
                     ],
-                    'reset-pwd'       => [
+                    'reset-pwd'    => [
                         'type'    => 'Zend\Mvc\Router\Http\Segment',
                         'options' => [
                             'route'       => '/reset-password/:token/:id',
