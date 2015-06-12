@@ -4,8 +4,8 @@ $user = $this->user;
 ?>
 
 Gentile <?= $user->getName() . ' ' . $user->getSurname(); ?>, <br/>
-per conferma il suo account deve cliccare il link qui di seguito: <br />
+per conferma il suo account deve cliccare il link qui di seguito: <br /><br />
 
-<a href="<?= $this->url('verify', ['token' => $this->token, 'id' => $user->getId()], ['force_canonical' => true]); ?>">
+<a href="<?= $this->url('user/verify', ['token' => $this->token, 'id' => $user->getId()], ['force_canonical' => true]); ?>">
     Conferma Account
 </a>

@@ -2,6 +2,7 @@
 namespace WebReattivoCore\Service;
 
 use AcMailer\Service\MailService;
+use Doctrine\Entity;
 use WebReattivoCore\Utility\ErrorException;
 use Zend\Crypt\Password\Bcrypt;
 use Zend\Http\PhpEnvironment\RemoteAddress;

@@ -1,0 +1,32 @@
+<h1>Password Smarrita?</h1>
+<?php
+$form = $this->lostPasswordForm->prepare();
+?>
+
+<div class="row">
+    <div class="col-md-12">
+
+        <?= $this->partial('partials/flash-messages.phtml', []); ?>
+
+        <?= $this->form()->openTag($form); ?>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="form-group">
+                    <label for="gender">Email</label>
+                    <?= $this->formRow($form->get('email')); ?>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-lg-12">
+                <button type="submit" class="btn btn-success">Richiedi Password</button>
+            </div>
+        </div>
+
+        <?= $this->form()->closeTag(); ?>
+
+    </div>
+</div>
