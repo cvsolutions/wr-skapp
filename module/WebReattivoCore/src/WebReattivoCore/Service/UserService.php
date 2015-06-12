@@ -19,4 +19,15 @@ class UserService extends BaseService
     {
 
     }
+
+    /**
+     * @param $email
+     *
+     * @return null|object
+     */
+    public function findOneByEmail($email)
+    {
+
+        return $this->findOneBy(['email' => $email]);
+    }
 }

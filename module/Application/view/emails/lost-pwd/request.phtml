@@ -1,0 +1,11 @@
+<?php
+/** @var \WebReattivoCore\Entity\User $user */
+$user = $this->user;
+?>
+
+Gentile <?= $user->getName() . ' ' . $user->getSurname(); ?>, <br/>
+per conferma resettare la sua nuova password deve cliccare il link qui di seguito: <br /><br/>
+
+<a href="<?= $this->url('user/reset-pwd', ['token' => $this->token, 'id' => $user->getId()], ['force_canonical' => true]); ?>">
+    Reset Password
+</a>

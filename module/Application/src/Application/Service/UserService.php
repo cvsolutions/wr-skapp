@@ -8,6 +8,7 @@ use WebReattivoCore\Entity\UserToken;
 use WebReattivoCore\Service\UserTokenService;
 use WebReattivoCore\Utility\MessageError;
 use WebReattivoCore\Utility\Roles;
+use WebReattivoCore\Utility\Templates;
 use WebReattivoCore\Utility\TypeToken;
 use WebReattivoCore\Utility\UserStatus;
 
@@ -69,6 +70,13 @@ class UserService extends \WebReattivoCore\Service\UserService
         return $this->userTokenService->verifyToken($token, $userId, TypeToken::REGISTRATION);
     }
 
+    /**
+     * @param UserToken $userToken
+     *
+     * @return User
+     * @throws \Doctrine\DBAL\ConnectionException
+     * @throws \Exception
+     */
     public function confirm(UserToken $userToken)
     {
         $this->getConnection()->beginTransaction();
@@ -88,6 +96,69 @@ class UserService extends \WebReattivoCore\Service\UserService
 
             $this->entityManager->persist($user);
             $this->entityManager->flush();
+
+            $this->userTokenService->deleteToken($userToken);
+
+            $this->getConnection()->commit();
+
+            return $user;
+
+        } catch (\Exception $e) {
+
+            $this->getConnection()->rollback();
+            throw $e;
+        }
+    }
+
+    public function lostPwd(User $user)
+    {
+        try {
+
+            $token = $this->userTokenService->createToken($user, TypeToken::LOST_PWD);
+            $emailService = $this->getEmailService();
+            $emailService->setTemplate(Templates::LOST_PWD, [
+                'user'  => $user,
+                'token' => $token->getToken()
+            ]);
+            $emailService->getMessage()
+                ->setSubject('Richiesta Password Smarrita')
+                ->addTo($user->getEmail());
+            $emailService->send();
+
+        } catch (\Exception $e) {
+
+            throw $e;
+        }
+    }
+
+    /**
+     * @param $token
+     * @param $userId
+     *
+     * @return null|UserToken
+     */
+    public function verifyTokenLostPwd($token, $userId)
+    {
+        return $this->userTokenService->verifyToken($token, $userId, TypeToken::LOST_PWD);
+    }
+
+    /**
+     * @param User      $user
+     * @param UserToken $userToken
+     *
+     * @return User
+     * @throws \Doctrine\DBAL\ConnectionException
+     * @throws \Exception
+     */
+    public function resetPwd(User $user, UserToken $userToken)
+    {
+        $this->getConnection()->beginTransaction();
+
+        try {
+
+            $user->setPassword($this->getPasswordEncrypted($user->getPassword()));
+            $this->getEntityManager()->persist($user);
+            $this->getEntityManager()->flush();
 
             $this->userTokenService->deleteToken($userToken);
 

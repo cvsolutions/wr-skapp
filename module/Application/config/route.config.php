@@ -12,28 +12,65 @@ return [
                     ],
                 ],
             ],
-            'registration' => [
-                'type'    => 'Zend\Mvc\Router\Http\Literal',
-                'options' => [
-                    'route'    => '/user/registration',
+            'user' => [
+                'type'          => 'Zend\Mvc\Router\Http\Literal',
+                'options'       => [
+                    'route' => '/user',
                     'defaults' => [
-                        'controller' => 'Application\Controller\User',
+                        'controller' => 'Application\Controller\UserArea',
                         'action'     => 'index',
                     ],
                 ],
-            ],
-            'verify' => [
-                'type'    => 'Zend\Mvc\Router\Http\Segment',
-                'options' => [
-                    'route'    => '/user/verify/:token/:id',
-                    'constraints' => [
-                        'token' => '[a-zA-Z0-9]*',
-                        'id'    => '[0-9]*'
+                'may_terminate' => true,
+                'child_routes'  => [
+                    'registration' => [
+                        'type'    => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => [
+                            'route'    => '/registration',
+                            'defaults' => [
+                                'controller' => 'Application\Controller\User',
+                                'action'     => 'index',
+                            ],
+                        ],
                     ],
-                    'defaults' => [
-                        'controller' => 'Application\Controller\User',
-                        'action'     => 'verify',
-                    ]
+                    'verify'       => [
+                        'type'    => 'Zend\Mvc\Router\Http\Segment',
+                        'options' => [
+                            'route'       => '/verify/:token/:id',
+                            'constraints' => [
+                                'token' => '[a-zA-Z0-9]*',
+                                'id'    => '[0-9]*'
+                            ],
+                            'defaults'    => [
+                                'controller' => 'Application\Controller\User',
+                                'action'     => 'verify',
+                            ]
+                        ],
+                    ],
+                    'lost-pwd'       => [
+                        'type'    => 'Zend\Mvc\Router\Http\Segment',
+                        'options' => [
+                            'route'       => '/lost-password',
+                            'defaults'    => [
+                                'controller' => 'Application\Controller\User',
+                                'action'     => 'lost-pwd',
+                            ]
+                        ],
+                    ],
+                    'reset-pwd'       => [
+                        'type'    => 'Zend\Mvc\Router\Http\Segment',
+                        'options' => [
+                            'route'       => '/reset-password/:token/:id',
+                            'constraints' => [
+                                'token' => '[a-zA-Z0-9]*',
+                                'id'    => '[0-9]*'
+                            ],
+                            'defaults'    => [
+                                'controller' => 'Application\Controller\User',
+                                'action'     => 'reset-pwd',
+                            ]
+                        ],
+                    ],
                 ],
             ],
         ],

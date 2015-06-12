@@ -11,8 +11,10 @@ return [
             'translator' => 'MvcTranslator',
         ],
         'factories' => [
-            'userService'      => 'Application\Factory\Service\UserFactory',
-            'registrationForm' => 'Application\Factory\Form\RegistrationFactory'
+            'userService'       => 'Application\Factory\Service\UserFactory',
+            'registrationForm'  => 'Application\Factory\Form\RegistrationFactory',
+            'lostPasswordForm'  => 'Application\Factory\Form\LostPasswordFactory',
+            'resetPasswordForm' => 'Application\Factory\Form\ResetPasswordFactory'
         ]
     ],
     'translator' => [

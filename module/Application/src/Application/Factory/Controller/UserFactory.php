@@ -23,7 +23,9 @@ class UserFactory implements FactoryInterface
     {
         $userService = $serviceLocator->getServiceLocator()->get('userService');
         $registrationForm = $serviceLocator->getServiceLocator()->get('registrationForm');
+        $lostPasswordForm = $serviceLocator->getServiceLocator()->get('lostPasswordForm');
+        $resetPasswordForm = $serviceLocator->getServiceLocator()->get('resetPasswordForm');
 
-        return new UserController($userService, $registrationForm);
+        return new UserController($userService, $registrationForm, $lostPasswordForm, $resetPasswordForm);
     }
 }
