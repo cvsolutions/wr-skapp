@@ -40,7 +40,7 @@ class UserTokenService extends BaseService
             $token->setUser($user);
             $token->setToken(sha1(Rand::getString(32, 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789',
                 true)));
-            $token->setDateRegistration(new \DateTime());
+            $token->setDateRegistration($this->getDataTime());
 
             $this->getEntityManager()->persist($token);
             $this->getEntityManager()->flush();

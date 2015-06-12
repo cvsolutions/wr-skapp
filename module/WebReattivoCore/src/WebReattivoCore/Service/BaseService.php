@@ -3,6 +3,8 @@ namespace WebReattivoCore\Service;
 
 use AcMailer\Service\MailService;
 use WebReattivoCore\Utility\ErrorException;
+use Zend\Crypt\Password\Bcrypt;
+use Zend\Http\PhpEnvironment\RemoteAddress;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
@@ -71,6 +73,35 @@ class BaseService implements ServiceLocatorAwareInterface
     }
 
     /**
+     * @return string
+     */
+    public function getIpAddress()
+    {
+        /** @var RemoteAddress $ip */
+        $ip = new RemoteAddress();
+
+        return $ip->getIpAddress();
+    }
+
+    public function getDataTime()
+    {
+        return new \DateTime();
+    }
+
+    /**
+     * @param $password
+     *
+     * @return string
+     */
+    public function getPasswordEncrypted($password)
+    {
+        /** @var Bcrypt $bcrypt */
+        $bcrypt = new Bcrypt();
+
+        return $bcrypt->create($password);
+    }
+
+    /**
      * @param int $id
      *
      * @return null|object
@@ -80,7 +111,7 @@ class BaseService implements ServiceLocatorAwareInterface
      */
     public function find($id = 0)
     {
-        if(empty($id)) {
+        if (empty($id)) {
             throw new \InvalidArgumentException(ErrorException::INVALID_ARGUMENT);
         }
 

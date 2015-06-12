@@ -101,43 +101,43 @@ return [
                  * Default content is an empty string.
                  */
                 //'body' => [
-                //'content' => '',
-                //'charset' => 'utf-8',
-                //'use_template' => false,
+                    //'content' => '',
+                    //'charset' => 'utf-8',
+                    //'use_template' => false,
 
-                /*
-                 * Defines information to create the email body from a view partial.
-                 * It defines template path and template params.
-                 * The path will be resolved by a view resolver, so you need to place mail templates inside a view
-                 * folder of one of your modules or customize your template map and template path stack.
-                 * Params will be a group of key-value pairs.
-                 *
-                 * The 'children' property allows to define children for the template, in case you want to use
-                 * layouts.
-                 * You can define any number of children. The key in the array will be used as the 'capture_to'
-                 * property when rendering the template.
-                 * If you set the key 'content' to the child, you should have something like echo $this->content in
-                 * you layout.
-                 *
-                 * Any child can have its own children, so you can nest views into other views recursively.
-                 *
-                 * By default no children are used
-                 */
-                //'template' => [
-                //    'path'          => 'ac-mailer/mail-templates/layout',
-                //    'params'        => [],
-                //    'children'      => [
-                //        'content'   => [
-                //            'path'   => 'ac-mailer/mail-templates/mail',
-                //            'params' => [],
-                //        ]
-                //    ],
-                //    'default_layout' => [
-                //        'path' => null,
-                //        'params' => [],
-                //        'template_capture_to' => 'content'
-                //    ]
-                //],
+                    /*
+                     * Defines information to create the email body from a view partial.
+                     * It defines template path and template params.
+                     * The path will be resolved by a view resolver, so you need to place mail templates inside a view
+                     * folder of one of your modules or customize your template map and template path stack.
+                     * Params will be a group of key-value pairs.
+                     *
+                     * The 'children' property allows to define children for the template, in case you want to use
+                     * layouts.
+                     * You can define any number of children. The key in the array will be used as the 'capture_to'
+                     * property when rendering the template.
+                     * If you set the key 'content' to the child, you should have something like echo $this->content in
+                     * you layout.
+                     *
+                     * Any child can have its own children, so you can nest views into other views recursively.
+                     *
+                     * By default no children are used
+                     */
+                    //'template' => [
+                    //    'path'          => 'ac-mailer/mail-templates/layout',
+                    //    'params'        => [],
+                    //    'children'      => [
+                    //        'content'   => [
+                    //            'path'   => 'ac-mailer/mail-templates/mail',
+                    //            'params' => [],
+                    //        ]
+                    //    ],
+                    //    'default_layout' => [
+                    //        'path' => null,
+                    //        'params' => [],
+                    //        'template_capture_to' => 'content'
+                    //    ]
+                    //],
                 //],
 
                 /*
@@ -194,28 +194,28 @@ return [
                 //'connection_class' => 'smtp',
 
                 //'connection_config' => [
-                /*
-                 * The SMTP authentication identity.
-                 * If this is not set, the 'from' option of the message will be used.
-                 *
-                 * Default value is an empty string
-                 */
-                //'username' => '',
+                    /*
+                     * The SMTP authentication identity.
+                     * If this is not set, the 'from' option of the message will be used.
+                     *
+                     * Default value is an empty string
+                     */
+                    //'username' => '',
 
-                /*
-                 * The SMTP authentication credential.
-                 *
-                 * Default value is an empty string
-                 */
-                //'password' => '',
+                    /*
+                     * The SMTP authentication credential.
+                     *
+                     * Default value is an empty string
+                     */
+                    //'password' => '',
 
-                /*
-                 * This defines the encryption type to be used, 'ssl' or 'tls'.
-                 * Boolean false should be used to disable SSL.
-                 *
-                 * Default value is false
-                 */
-                //'ssl' => false,
+                    /*
+                     * This defines the encryption type to be used, 'ssl' or 'tls'.
+                     * Boolean false should be used to disable SSL.
+                     *
+                     * Default value is false
+                     */
+                    //'ssl' => false,
                 //],
             ],
 
