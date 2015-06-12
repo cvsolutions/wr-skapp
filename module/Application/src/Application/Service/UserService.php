@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManager;
 use WebReattivoCore\Entity\User;
 use WebReattivoCore\Entity\UserToken;
 use WebReattivoCore\Service\UserTokenService;
+use WebReattivoCore\Utility\Email;
 use WebReattivoCore\Utility\MessageError;
 use WebReattivoCore\Utility\Roles;
 use WebReattivoCore\Utility\Templates;
@@ -50,7 +51,17 @@ class UserService extends \WebReattivoCore\Service\UserService
 
             $this->getConnection()->commit();
 
-            return $token;
+            $emailService = $this->getEmailService();
+            $emailService->setTemplate(Templates::VERIFY_ACCOUNT, [
+                'user'  => $user,
+                'token' => $token->getToken()
+            ]);
+            $emailService->getMessage()
+                ->setSubject(Email::SUBJECT_REGISTRATION)
+                ->addTo($user->getEmail());
+            $emailService->send();
+
+            return $user;
 
         } catch (\Exception $e) {
 
@@ -121,7 +132,7 @@ class UserService extends \WebReattivoCore\Service\UserService
                 'token' => $token->getToken()
             ]);
             $emailService->getMessage()
-                ->setSubject('Richiesta Password Smarrita')
+                ->setSubject(Email::SUBJECT_LOST_PWD)
                 ->addTo($user->getEmail());
             $emailService->send();
 

@@ -7,10 +7,8 @@ use Application\Form\RegistrationForm;
 use Application\Form\ResetPasswordForm;
 use Application\Service\UserService;
 use WebReattivoCore\Entity\User;
-use WebReattivoCore\Entity\UserToken;
 use WebReattivoCore\Utility\MessageError;
 use WebReattivoCore\Utility\MessageSuccess;
-use WebReattivoCore\Utility\Templates;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
@@ -57,19 +55,7 @@ class UserController extends AbstractActionController
 
                     /** @var User $user */
                     $user = $form->getData();
-
-                    /** @var UserToken $token */
-                    $token = $this->userService->registration($user);
-                    $emailService = $this->userService->getEmailService();
-                    $emailService->setTemplate(Templates::VERIFY_ACCOUNT, [
-                        'user'  => $user,
-                        'token' => $token->getToken()
-                    ]);
-                    $emailService->getMessage()
-                        ->setSubject('Conferma Email')
-                        ->addTo($user->getEmail());
-                    $emailService->send();
-
+                    $this->userService->registration($user);
                     $this->flashMessenger()->addSuccessMessage(MessageSuccess::DEFALUT_MESSAGE);
 
                 } catch (\Exception $e) {
@@ -129,9 +115,7 @@ class UserController extends AbstractActionController
                     $user = $this->userService->findOneByEmail($formData['email']);
 
                     if (is_null($user)) {
-
                         $this->flashMessenger()->addSuccessMessage(MessageSuccess::LOSTPWD_CONFIRM);
-
                         return $this->redirect()->toRoute(self::ROUTE_LOST_PWD);
                     }
 
